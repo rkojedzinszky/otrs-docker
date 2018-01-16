@@ -1,17 +1,18 @@
 FROM debian:stretch
 MAINTAINER Richard Kojedzinszky <krichy@nmdps.net>
 
-ENV OTRS_VERSION=5.0.18 \
-	OTRS_MD5SUM=c7da745c8b27fe310e2e4a5c0af5d5b8 \
+ENV OTRS_VERSION=6.0.3 \
+	OTRS_MD5SUM=059c527118eb2cc03cccaf0eaadfb275 \
 	OTRS_URL_PREFIX=http://ftp.otrs.org/pub/otrs/
 
 RUN apt-get update && apt-get dist-upgrade -f -y && \
 	apt-get install -f -y apache2 libapache2-mod-perl2 libdbd-mysql-perl libdbd-pg-perl \
-	libtimedate-perl libnet-dns-perl libnet-ldap-perl libio-socket-ssl-perl \
+	libdatetime-perl libnet-dns-perl libnet-ldap-perl libio-socket-ssl-perl \
 	libpdf-api2-perl libsoap-lite-perl libtext-csv-xs-perl libjson-xs-perl \
 	libapache-dbi-perl libxml-libxml-perl libxml-libxslt-perl libyaml-perl \
 	libarchive-zip-perl libcrypt-eksblowfish-perl libencode-hanextra-perl \
-	libmail-imapclient-perl libtemplate-perl libcrypt-ssleay-perl wget supervisor cron && \
+	libmail-imapclient-perl libtemplate-perl libcrypt-ssleay-perl libwww-perl \
+	wget supervisor cron && \
 	rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
 RUN wget -O /tmp/otrs-${OTRS_VERSION}.tar.gz ${OTRS_URL_PREFIX}/otrs-${OTRS_VERSION}.tar.gz && \
